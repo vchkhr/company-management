@@ -1,10 +1,9 @@
-from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from backend.models import Company, Worker
+from backend.models import User, Company
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -17,7 +16,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = '__all__'
+        fields = ['name', 'address']
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -41,22 +40,20 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         company_data = validated_data.pop('company')
 
+        company = Company.objects.create(**company_data)
+
         user = User.objects.create(
             username=validated_data['email'],
             email=validated_data['email'],
             first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
+            last_name=validated_data['last_name'],
+            company=company
         )
-
-        print(validated_data)
 
         user.set_password(validated_data['password'])
         user.save()
 
-        company = Company.objects.create(**company_data)
+        company.user = user
         company.save()
-
-        worker = Worker.objects.create(user=user, company=company, is_admin=True)
-        worker.save()
 
         return user

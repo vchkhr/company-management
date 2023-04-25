@@ -1,17 +1,21 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    company = models.ForeignKey('Company', on_delete=models.CASCADE, related_name='+')
+
+    def __str__(self):
+        return self.email
 
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=150, null=True)
-    users = models.ManyToManyField(User, through="Worker")
+    user = models.ForeignKey('User', on_delete=models.CASCADE, null=True, related_name='+')
 
-
-class Worker(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    is_admin = models.BooleanField(default=False)
+    def __str__(self):
+        return self.name
 
 
 

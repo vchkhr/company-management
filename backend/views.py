@@ -1,8 +1,7 @@
-from django.contrib.auth.models import User
-
 from rest_framework import viewsets, generics, permissions
 from rest_framework.response import Response
 
+from backend.models import User
 from backend.serializers import UserSerializer, RegisterSerializer
 
 
