@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "company-management"
+version = "0.1.0"
+description = ""
+authors = ["Viacheslav Kharchenko <vchkhr@gmail.com>"]
+readme = "README.md"
+packages = [{include = "company_management"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "^4.2"
+django-rest-framework = "^0.1.0"
+psycopg2 = "^2.9.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

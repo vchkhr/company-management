@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  api:
+    container_name: api
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+      - DB_USER=username
+      - DB_PASSWORD=password
+      - DB_NAME=company_management
+      - DB_HOST=db
+      - DB_PORT=5432
+  db:
+    container_name: db
+    image: postgres:15.2-alpine3.17
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=company_management
