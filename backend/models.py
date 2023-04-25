@@ -1,18 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=150, null=True)
+    users = models.ManyToManyField(User, through="Worker")
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    company = models.OneToOneField(Company, on_delete=models.CASCADE)
+class Worker(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     is_admin = models.BooleanField(default=False)
+
 
 
 # class Office(models.Model):
