@@ -4,7 +4,10 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
+
     company = models.ForeignKey('companies.Company', on_delete=models.CASCADE, null=True, related_name='+')
+    office = models.ForeignKey('offices.Office', on_delete=models.CASCADE, null=True, related_name='+')
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 

@@ -1,13 +1,11 @@
-from rest_framework import viewsets, generics, permissions
+from rest_framework import viewsets
 
-from companies.models import Company
 from companies.serializers import CompanySerializer
-from companies.permissions import IsCompanyAdminPermission
-from django_filters.rest_framework import DjangoFilterBackend
+from users.permissions import IsAdminOrGetPermission
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsCompanyAdminPermission]
+    permission_classes = [IsAdminOrGetPermission]
     serializer_class = CompanySerializer
 
     def get_object(self):

@@ -22,10 +22,12 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,)
 
 from users.views import UserViewSet, RegisterView
 from companies.views import CompanyViewSet
+from offices.views import OfficeViewSet
 
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'offices', OfficeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
