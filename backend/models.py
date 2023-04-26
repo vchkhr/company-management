@@ -11,6 +11,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
+    def is_admin(self):
+        return self == self.company.user
+
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
@@ -19,6 +22,9 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    def users(self):
+        return User.objects.filter(company=self)
 
 
 

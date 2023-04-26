@@ -5,11 +5,34 @@ from rest_framework.validators import UniqueValidator
 
 from backend.models import User, Company
 
+import math
+from datetime import datetime
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'password' 'first_name', 'last_name']
+        fields = ['email', 'password', 'first_name', 'last_name']
+
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
+    def create(self, validated_data):
+        current_user = self.context.get("request").user
+
+        user = User.objects.create(
+            username=validated_data['email'],
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            company=current_user.company,
+        )
+
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user
 
 
 class CompanySerializer(serializers.ModelSerializer):
