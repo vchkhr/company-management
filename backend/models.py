@@ -4,9 +4,9 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
-    company = models.ForeignKey('Company', on_delete=models.CASCADE, related_name='+')
+    company = models.ForeignKey('Company', on_delete=models.CASCADE, null=True, related_name='+')
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     def __str__(self):
         return self.email
