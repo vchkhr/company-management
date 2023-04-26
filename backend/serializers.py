@@ -43,7 +43,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         company = Company.objects.create(**company_data)
 
         user = User.objects.create(
-            username=validated_data['email'],
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
