@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'rest_framework',
-    'backend'
+    'users',
+    'companies',
+    'offices',
 ]
 
 MIDDLEWARE = [
@@ -149,7 +151,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AUTH_USER_MODEL = 'backend.User'
+AUTH_USER_MODEL = 'users.User'
 
 
 REST_FRAMEWORK = {
@@ -166,4 +168,3 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=15),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=15),
 }
-

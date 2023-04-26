@@ -1,12 +1,9 @@
 from rest_framework import viewsets, generics, permissions
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
 
-from backend.models import User
-from backend.serializers import UserSerializer, RegisterSerializer
-from backend.permissions import IsCompanyAdminPermission
+from users.models import User
+from users.serializers import UserSerializer, RegisterSerializer
+from users.permissions import IsCompanyAdminPermission
 from django_filters.rest_framework import DjangoFilterBackend
-
 
 
 class UserViewSet(viewsets.ModelViewSet):

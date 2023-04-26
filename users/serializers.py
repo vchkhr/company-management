@@ -3,10 +3,9 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from backend.models import User, Company
-
-import math
-from datetime import datetime
+from users.models import User
+from companies.models import Company
+from companies.serializers import CompanySerializer
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -33,12 +32,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
 
         return user
-
-
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = ['name', 'address']
 
 
 class RegisterSerializer(serializers.ModelSerializer):
