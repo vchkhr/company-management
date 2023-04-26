@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
-from users.views import UserViewSet, RegisterView
 
+from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (TokenObtainPairView,)
+
+from users.views import UserViewSet, RegisterView
+from companies.views import CompanyViewSet
 
 
 router = DefaultRouter()
@@ -29,5 +31,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('register/', RegisterView.as_view(), name='auth_register'),
+    path("company/", CompanyViewSet.as_view({"get": "retrieve", "patch": "partial_update"}), name="company"),
     path('', include(router.urls)),
 ]
