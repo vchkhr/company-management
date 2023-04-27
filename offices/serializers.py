@@ -12,9 +12,9 @@ class OfficeSerializer(serializers.ModelSerializer):
         current_user = self.context.get("request").user
 
         office = Office.objects.create(
-            company=current_user.company,
-            **validated_data
-        )
+                company=current_user.company,
+                **validated_data
+                )
 
         office.save()
 

@@ -16,9 +16,6 @@ class OfficeViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['country', 'city']
 
-    def get_object(self):
-        return self.request.user.company
-
 
 class OfficeRetrieveView(generics.RetrieveAPIView):
     queryset = Office.objects.all().order_by('name')

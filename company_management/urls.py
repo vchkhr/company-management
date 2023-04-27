@@ -23,17 +23,20 @@ from rest_framework_simplejwt.views import (TokenObtainPairView,)
 from users.views import UserViewSet, RegisterView
 from companies.views import CompanyViewSet
 from offices.views import OfficeViewSet, OfficeRetrieveView
+from vehicles.views import VehicleViewSet, VehicleListView
 
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'offices', OfficeViewSet)
+router.register(r'vehicles', VehicleViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('register/', RegisterView.as_view(), name='auth_register'),
-    path("company/", CompanyViewSet.as_view({"get": "retrieve", "patch": "partial_update"}), name="company"),
-    path("office/", OfficeRetrieveView.as_view(), name="office"),
+    path("user/company/", CompanyViewSet.as_view({"get": "retrieve", "patch": "partial_update"}), name="company"),
+    path("user/office/", OfficeRetrieveView.as_view(), name="office"),
+    path("user/vehicles/", VehicleListView.as_view(), name="vehicle"),
     path('', include(router.urls)),
 ]

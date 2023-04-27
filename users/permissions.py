@@ -3,6 +3,13 @@ from rest_framework import permissions
 from offices.models import Office
 
 
+class IsAdminPermission(permissions.BasePermission):
+    message = 'You should be company admin to perform this action.'
+
+    def has_permission(self, request, view):
+        return request.user.is_admin()
+
+
 class IsAdminOrSelfPermission(permissions.BasePermission):
     message = 'You should be company admin to perform this action.'
 
