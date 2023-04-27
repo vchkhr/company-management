@@ -13,9 +13,3 @@ class Office(models.Model):
 
     def __str__(self):
         return self.name
-
-    def user(self):
-        return User.objects.filter(company=self.company)
-
-    def users(self):
-        return User.objects.filter(office=self)

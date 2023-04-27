@@ -6,7 +6,7 @@ from offices.models import Office
 class OfficeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Office
-        fields = ['name', 'country', 'region', 'city', 'address']
+        fields = ['id', 'name', 'country', 'region', 'city', 'address']
 
     def create(self, validated_data):
         current_user = self.context.get("request").user

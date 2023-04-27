@@ -6,4 +6,5 @@ from companies.models import Company
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
+        # users = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
         fields = ['name', 'address']

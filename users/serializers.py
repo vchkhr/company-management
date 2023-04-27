@@ -6,12 +6,15 @@ from rest_framework.validators import UniqueValidator
 from users.models import User
 from companies.models import Company
 from companies.serializers import CompanySerializer
+from offices.models import Office
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    office = serializers.PrimaryKeyRelatedField(queryset=Office.objects.all(), allow_null=True)
+
     class Meta:
         model = User
-        fields = ['id', 'email', 'password', 'first_name', 'last_name']
+        fields = ['id', 'email', 'password', 'first_name', 'last_name', 'office']
 
         extra_kwargs = {
             'password': {'write_only': True}
@@ -34,8 +37,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        instance.last_name = validated_data.get('last_name', instance.last_name)
+        for attr in ['first_name', 'last_name', 'office']:
+            val = validated_data.get(attr, getattr(instance, attr))
+            setattr(instance, attr, val)
 
         if validated_data.get('password'):
             instance.set_password(validated_data['password'])
@@ -79,7 +83,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
 
-        company.user = user
+        company.admin = user
         company.save()
 
         return user

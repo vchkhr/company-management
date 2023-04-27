@@ -5,8 +5,8 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     email = models.EmailField(verbose_name='email address', max_length=255, unique=True)
 
-    company = models.ForeignKey('companies.Company', on_delete=models.CASCADE, null=True, related_name='+')
-    office = models.ForeignKey('offices.Office', on_delete=models.CASCADE, null=True, related_name='+')
+    company = models.ForeignKey('companies.Company', on_delete=models.CASCADE, null=True, related_name='users')
+    office = models.ForeignKey('offices.Office', on_delete=models.CASCADE, null=True, related_name='users')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -15,4 +15,4 @@ class User(AbstractUser):
         return self.email
 
     def is_admin(self):
-        return self == self.company.user
+        return self == self.company.admin
