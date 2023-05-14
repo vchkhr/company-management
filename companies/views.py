@@ -1,11 +1,11 @@
 from rest_framework import viewsets
 
 from companies.serializers import CompanySerializer
-from users.permissions import IsAdminOrGetPermission
+from companies.permissions import CompanyPermission
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminOrGetPermission]
+    permission_classes = [CompanyPermission]
     serializer_class = CompanySerializer
 
     def get_object(self):

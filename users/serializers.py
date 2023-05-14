@@ -10,7 +10,7 @@ from offices.models import Office
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    office = serializers.PrimaryKeyRelatedField(queryset=Office.objects.all(), allow_null=True)
+    office = serializers.PrimaryKeyRelatedField(queryset=Office.objects.all(), required=False)
 
     class Meta:
         model = User

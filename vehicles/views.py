@@ -2,12 +2,12 @@ from rest_framework import viewsets, generics
 
 from vehicles.models import Vehicle
 from vehicles.serializers import VehicleSerializer
-from users.permissions import IsAdminPermission
+from users.permissions import VehiclePermission
 from django_filters.rest_framework import DjangoFilterBackend
 
 
 class VehicleViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminPermission]
+    permission_classes = [VehiclePermission]
     queryset = Vehicle.objects.all().order_by('name')
     serializer_class = VehicleSerializer
     filter_backends = [DjangoFilterBackend]

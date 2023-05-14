@@ -6,13 +6,13 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+    2. Add a URL to urlpatterns:  path("", views.home, name="home")
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+    2. Add a URL to urlpatterns:  path("", Home.as_view(), name="home")
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    2. Add a URL to urlpatterns:  path("blog/", include("blog.urls"))
 """
 from django.contrib import admin
 from django.urls import include, path
@@ -27,16 +27,16 @@ from vehicles.views import VehicleViewSet, VehicleListView
 
 
 router = DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'offices', OfficeViewSet)
-router.register(r'vehicles', VehicleViewSet)
+router.register(r"users", UserViewSet)
+router.register(r"offices", OfficeViewSet)
+router.register(r"vehicles", VehicleViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('register/', RegisterView.as_view(), name='auth_register'),
-    path("user/company/", CompanyViewSet.as_view({"get": "retrieve", "patch": "partial_update"}), name="company"),
-    path("user/office/", OfficeRetrieveView.as_view(), name="office"),
-    path("user/vehicles/", VehicleListView.as_view(), name="vehicle"),
-    path('', include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("register/", RegisterView.as_view(), name="auth_register"),
+    path("company/", CompanyViewSet.as_view({"get": "retrieve", "patch": "partial_update"}), name="company"),
+    path("office/", OfficeRetrieveView.as_view(), name="office"),
+    path("vehicles/", VehicleListView.as_view(), name="vehicle"),
+    path("", include(router.urls)),
 ]

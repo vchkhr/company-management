@@ -2,7 +2,7 @@ from rest_framework import viewsets, generics, permissions
 
 from users.models import User
 from users.serializers import UserSerializer, RegisterSerializer
-from users.permissions import IsAdminOrSelfPermission
+from users.permissions import UserPermission
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -10,7 +10,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    permission_classes = [IsAdminOrSelfPermission]
+    permission_classes = [UserPermission]
     queryset = User.objects.all().order_by('date_joined')
     serializer_class = UserSerializer
     filter_backends = [DjangoFilterBackend]
