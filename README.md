@@ -7,11 +7,11 @@
 
 ## Admin panel
 
-1. To create the superuser, run `docker-compose exec -it api python manage.py createsuperuser --email admin@example.com --username admin`. Enter and repeat the password.
+1. To create the superuser, run `docker-compose exec -it api python manage.py createsuperuser --email admin@example.com`. Enter and repeat the password.
 2. Open `http://localhost:8000/admin/`.
 3. Use `admin@example.com` as an email and enter your password.
 
 
 ## Testing
 
-Run `./manage.py test` to run all tests or `./manage.py test users.tests.test_registration` to run a specific test.
+Run `.docker-compose exec -it api python manage.py test` to run all tests.

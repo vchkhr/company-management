@@ -15,7 +15,6 @@ class UserTestCase(TestCase):
         self.company = Company.objects.create(name="test")
         self.admin = User.objects.create(
             email="admin@test.com",
-            username="admin@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
@@ -35,7 +34,6 @@ class UserTestCase(TestCase):
 
         self.worker = User.objects.create(
             email="worker@test.com",
-            username="worker@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",

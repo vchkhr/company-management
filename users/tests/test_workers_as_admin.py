@@ -15,7 +15,6 @@ class UserTestCase(TestCase):
         self.company = Company.objects.create(name="test")
         self.admin = User.objects.create(
             email="admin@test.com",
-            username="admin@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
@@ -26,7 +25,6 @@ class UserTestCase(TestCase):
 
         self.worker = User.objects.create(
             email="worker@test.com",
-            username="worker@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
@@ -35,7 +33,6 @@ class UserTestCase(TestCase):
 
         self.admin_outside = User.objects.create(
             email="admin_outside@test.com",
-            username="admin_outside@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
@@ -58,7 +55,6 @@ class UserTestCase(TestCase):
     def test_create(self):
         worker_body = {
             "email": "worker2@test.com",
-            "username": "worker2@test.com",
             "first_name": "first_name",
             "last_name": "last_name",
             "password": "test_password_123"
@@ -72,7 +68,6 @@ class UserTestCase(TestCase):
     def test_create_duplicate(self):
         worker_body = {
             "email": "worker@test.com",
-            "username": "worker2@test.com",
             "first_name": "first_name",
             "last_name": "last_name",
             "password": "test_password_123"
@@ -86,7 +81,6 @@ class UserTestCase(TestCase):
     def test_create_with_incorrect_office(self):
         worker_body = {
             "email": "worker_incorrect_office@test.com",
-            "username": "worker_incorrect_office@test.com",
             "first_name": "first_name",
             "last_name": "last_name",
             "password": "test_password_123",

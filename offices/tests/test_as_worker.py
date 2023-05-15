@@ -15,7 +15,6 @@ class OfficeTestCase(TestCase):
         self.company = Company.objects.create(name="test")
         self.admin = User.objects.create(
             email="admin@test.com",
-            username="admin@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
@@ -35,7 +34,6 @@ class OfficeTestCase(TestCase):
 
         self.worker_office = User.objects.create(
             email="worker_office@test.com",
-            username="worker_office@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
@@ -54,7 +52,6 @@ class OfficeTestCase(TestCase):
 
         self.worker_office_2 = User.objects.create(
             email="worker_office_2@test.com",
-            username="worker_office_2@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
@@ -75,7 +72,6 @@ class OfficeTestCase(TestCase):
 
         self.worker_office_outside = User.objects.create(
             email="worker_office_outside@test.com",
-            username="worker_office_outside@test.com",
             first_name="first",
             last_name="last",
             password="test_password_123",
