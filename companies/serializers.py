@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from companies.models import Company
+from offices.serializers import OfficeSerializer
 
 
 class CompanySerializer(serializers.ModelSerializer):

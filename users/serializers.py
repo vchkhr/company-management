@@ -20,6 +20,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'password': {'write_only': True}
         }
 
+    def validate(self, attrs):
+        user = getattr(self, 'instance', None) or self.context.get("request").user # Requested or current user
+        if user and attrs.get('office') and attrs['office'].company != user.company:
+            raise serializers.ValidationError({"office": ["Not found."]})
+
+        return attrs
+
     def create(self, validated_data):
         current_user = self.context.get("request").user
 
@@ -29,6 +36,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             company=current_user.company,
+            office=validated_data.get('office')
         )
 
         user.set_password(validated_data['password'])
@@ -36,17 +44,17 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
         return user
 
-    def update(self, instance, validated_data):
+    def update(self, user, validated_data):
         for attr in ['first_name', 'last_name', 'office']:
-            val = validated_data.get(attr, getattr(instance, attr))
-            setattr(instance, attr, val)
+            val = validated_data.get(attr, getattr(user, attr))
+            setattr(user, attr, val)
 
         if validated_data.get('password'):
-            instance.set_password(validated_data['password'])
+            user.set_password(validated_data['password'])
 
-        instance.save()
+        user.save()
 
-        return instance
+        return user
 
 
 class RegisterSerializer(serializers.ModelSerializer):

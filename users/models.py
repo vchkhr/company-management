@@ -18,9 +18,3 @@ class User(AbstractUser):
 
     def is_admin(self):
         return self == self.company.admin
-
-    def clean(self):
-        if self.office is not None and self.office.company != self.company:
-            raise ValidationError(
-                {"office": _("Not found.")}
-            )

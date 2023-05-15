@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.models import User
 from companies.models import Company
+from offices.models import Office
 
 
 class UserTestCase(TestCase):
@@ -40,6 +41,17 @@ class UserTestCase(TestCase):
             password="test_password_123",
         )
 
+        self.company_outside = Company.objects.create(name="Company Outside")
+
+        self.office_outside = Office.objects.create(
+            name="Office Outside",
+            country="UA",
+            region="Lviv Region",
+            city="Lviv",
+            address="Independence Str.",
+            company=self.company_outside
+        )
+
         self.token = str(RefreshToken.for_user(self.admin).access_token)
         self.client.credentials(HTTP_AUTHORIZATION="Bearer %s" % (self.token))
 
@@ -69,6 +81,21 @@ class UserTestCase(TestCase):
         response = self.client.post("/users/", json.dumps(worker_body), content_type="application/json")
 
         self.assertEqual(json.loads(response.content)["email"], ["user with this email address already exists."])
+        self.assertEqual(User.objects.all().count(), 3)
+
+    def test_create_with_incorrect_office(self):
+        worker_body = {
+            "email": "worker_incorrect_office@test.com",
+            "username": "worker_incorrect_office@test.com",
+            "first_name": "first_name",
+            "last_name": "last_name",
+            "password": "test_password_123",
+            "office": self.office_outside.id
+        }
+
+        response = self.client.post("/users/", json.dumps(worker_body), content_type="application/json")
+
+        self.assertEqual(json.loads(response.content)["office"], ["Not found."])
         self.assertEqual(User.objects.all().count(), 3)
 
     def test_index(self):
