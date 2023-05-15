@@ -14,4 +14,4 @@
 
 ## Testing
 
-Run `.docker-compose exec -it api python manage.py test` to run all tests.
+Run `docker-compose exec -it api python manage.py test` to run all tests.

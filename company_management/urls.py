@@ -35,8 +35,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("register/", RegisterView.as_view(), name="auth_register"),
-    path("company/", CompanyViewSet.as_view({"get": "retrieve", "patch": "partial_update"}), name="company"),
-    path("office/", OfficeRetrieveView.as_view(), name="office"),
-    path("vehicles/", VehicleListView.as_view(), name="vehicle"),
+    path("user/company/", CompanyViewSet.as_view({"get": "retrieve", "patch": "partial_update"}), name="company"),
+    path("user/office/", OfficeRetrieveView.as_view(), name="office"),
+    path("user/vehicle/", VehicleListView.as_view(), name="vehicle"),
     path("", include(router.urls)),
 ]
