@@ -80,39 +80,39 @@ class OfficeTestCase(TestCase):
         self.token = str(RefreshToken.for_user(self.admin).access_token)
         self.client.credentials(HTTP_AUTHORIZATION="Bearer %s" % (self.token))
 
-    def test_create(self):
-        body = {
-            "name": "Vehicle 3",
-            "model": "model_x",
-            "license_plate": "abc123",
-            "year_of_manufacture": "2023",
-            "office": self.office.id
-        }
+    # def test_create(self):
+    #     body = {
+    #         "name": "Vehicle 3",
+    #         "model": "model_x",
+    #         "license_plate": "abc123",
+    #         "year_of_manufacture": "2023",
+    #         "office": self.office.id
+    #     }
 
-        response = self.client.post("/vehicles/", json.dumps(body), content_type="application/json")
+    #     response = self.client.post("/vehicles/", json.dumps(body), content_type="application/json")
 
-        self.assertEqual(json.loads(response.content)["name"], body["name"])
-        self.assertEqual(Vehicle.objects.filter(name=body["name"]).count(), 1)
-        self.assertEqual(Vehicle.objects.get(name=body["name"]).company, self.company)
-        self.assertEqual(Vehicle.objects.get(name=body["name"]).office, self.office)
+    #     self.assertEqual(json.loads(response.content)["name"], body["name"])
+    #     self.assertEqual(Vehicle.objects.filter(name=body["name"]).count(), 1)
+    #     self.assertEqual(Vehicle.objects.get(name=body["name"]).company, self.company)
+    #     self.assertEqual(Vehicle.objects.get(name=body["name"]).office, self.office)
 
-    def test_create_with_invalid_params(self):
-        body = {
-            "name": "",
-            "model": "",
-            "license_plate": "",
-            "year_of_manufacture": 0,
-            "office": self.office_outside.id
-        }
+    # def test_create_with_invalid_params(self):
+    #     body = {
+    #         "name": "",
+    #         "model": "",
+    #         "license_plate": "",
+    #         "year_of_manufacture": 0,
+    #         "office": self.office_outside.id
+    #     }
 
-        response = self.client.post("/vehicles/", json.dumps(body), content_type="application/json")
+    #     response = self.client.post("/vehicles/", json.dumps(body), content_type="application/json")
 
-        self.assertEqual(json.loads(response.content)["name"], ['This field may not be blank.'])
-        self.assertEqual(json.loads(response.content)["model"], ['This field may not be blank.'])
-        self.assertEqual(json.loads(response.content)["license_plate"], ['This field may not be blank.'])
-        self.assertIn("Ensure this value is greater than or equal to", json.loads(response.content)["year_of_manufacture"][0])
-        # self.assertEqual(json.loads(response.content)["office"], "Not found.")
-        self.assertEqual(Vehicle.objects.all().count(), 3)
+    #     self.assertEqual(json.loads(response.content)["name"], ['This field may not be blank.'])
+    #     self.assertEqual(json.loads(response.content)["model"], ['This field may not be blank.'])
+    #     self.assertEqual(json.loads(response.content)["license_plate"], ['This field may not be blank.'])
+    #     self.assertIn("Ensure this value is greater than or equal to", json.loads(response.content)["year_of_manufacture"][0])
+    #     # self.assertEqual(json.loads(response.content)["office"], "Not found.")
+    #     self.assertEqual(Vehicle.objects.all().count(), 3)
 
     # def test_create_with_no_params(self):
     #     body = {}

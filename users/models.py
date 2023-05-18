@@ -60,8 +60,13 @@ class User(AbstractUser):
         return self == self.company.admin
 
     def clean(self):
-        if self.office and len(self.company.office_set.all().filter(pk=self.office.id)) == 0:
+        if self.office and len(self.company.offices.all().filter(pk=self.office.id)) == 0:
             raise ValidationError({"office": "Not found."})
+
+        if self.office:
+            for vehicle in self.vehicles.all():
+                if vehicle.office != self.office:
+                    raise ValidationError({"office": "User should be in the same office as their vehicles."})
 
     def save(self, *args, **kwargs):
         self.full_clean()

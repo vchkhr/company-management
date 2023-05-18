@@ -23,7 +23,7 @@ class Vehicle(models.Model):
         return self.name
 
     def clean(self):
-        if self.office and len(self.company.office_set.all().filter(pk=self.office.id)) == 0:
+        if self.office and len(self.company.offices.filter(pk=self.office.id)) == 0:
             raise ValidationError({"office": "Not found."})
 
         if self.office and self.driver and self.driver.office != self.office:

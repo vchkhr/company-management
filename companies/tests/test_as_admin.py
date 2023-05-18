@@ -26,7 +26,7 @@ class CompanyTestCase(TestCase):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer %s" % (self.token))
 
     def test_show(self):
-        response = self.client.get("/company/")
+        response = self.client.get("/user/company/")
 
         self.assertEqual(json.loads(response.content)["name"], self.company.name)
 
@@ -36,7 +36,7 @@ class CompanyTestCase(TestCase):
             "address": "new_address"
         }
 
-        response = self.client.patch("/company/", json.dumps(body), content_type="application/json")
+        response = self.client.patch("/user/company/", json.dumps(body), content_type="application/json")
 
         self.assertEqual(json.loads(response.content)["name"], body["name"])
         self.assertEqual(Company.objects.get(pk=self.company.id).name, body["name"])
